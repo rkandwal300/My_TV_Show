@@ -15,7 +15,7 @@ function App() {
   ]);
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="bg-muted">
       <RouterProvider router={router} />
     </div>
   );

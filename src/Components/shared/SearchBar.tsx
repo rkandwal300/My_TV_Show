@@ -1,20 +1,27 @@
-import {FC, InputHTMLAttributes} from 'react'
-import { BsSearch } from "react-icons/bs";
+import { FC, InputHTMLAttributes } from 'react';
+import { BsSearch } from 'react-icons/bs';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 
-type SearchType = InputHTMLAttributes<HTMLInputElement>;
-const SearchBar : FC<SearchType> = ( props ) => {
-
-
-
-
-  return (
-    <div className="relative">
-      <input className="px-2 py-1 w-full rounded-full border border-black" type="text" placeholder="Search"
+type SearchType = InputHTMLAttributes<HTMLInputElement> & {
+  onChange: (value: string) => void;
+};
+const SearchBar: FC<SearchType> = ({ value, onChange, ...props }) => (
+  <div className="relative">
+    <Input
+      className="rounded-3xl"
+      type="text"
+      placeholder="Search"
       {...props}
-      />
-      <BsSearch className="absolute right-4 top-1/2 -translate-y-1/2" />
-    </div>
-  );
-}
+      onChange={(e) => onChange(e.target.value)}
+    />
+    <Button
+      variant={'ghost'}
+      className="absolute rounded-r-3xl right-0 top-1/2 -translate-y-1/2"
+    >
+      <BsSearch />
+    </Button>
+  </div>
+);
 
 export default SearchBar;

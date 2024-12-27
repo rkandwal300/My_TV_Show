@@ -9,6 +9,8 @@ import { State } from '../Redux/Reducer/Store';
 import { cast, Placeholder } from '../Types/Modals';
 // import { ShowCast, SingleShow } from "../Api/Api";
 import LoadingSpinner from '../Components/shared/LoadingSpinner';
+import { Button, buttonVariants } from '../Components/ui/button';
+import { Card } from '../Components/ui/card';
 import { showDetailId } from '../Redux/Action/ShowDetail';
 import { castMapLoaded } from '../Redux/Selectors/CastSelector';
 import { mapShowDetailSelector } from '../Redux/Selectors/ShowDetailSeletor';
@@ -31,59 +33,74 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({
 
   if (data) {
     return (
-      <div className="mt-2">
-        <Link to="/" className="flex items-center">
-          <IoArrowBack /> Back
-        </Link>
-        <h2 className="text-4xl font-semibold tracking-wide"> {data.name} </h2>
-        <div className="flex space-x-3 my-2 bg-gray-300 p-2 rounded-sm">
-          {data.genres &&
-            data.genres.map((val: string, index: number) => {
-              return <GenrePill name={val} key={index} />;
+      <div className="mt-2 bg-accent">
+        <div className="header">
+          <Link
+            to="/"
+            className={buttonVariants({
+              variant: 'outline',
             })}
-        </div>
-        <div className="mt-2 flex">
-          <img
-            src={data.image?.medium || data.image?.original || '5.5'}
-            alt={data.name}
-            className="object-cover object-center w-full rounded-t-md h-72"
-          />
-          <div className="ml-2">
-            <p dangerouslySetInnerHTML={{ __html: data.summary || '' }}></p>
-            <p className="mt-2 text-lg font-bold border border-gray-700 rounded-md px-2 py-1 max-w-max flex ">
-              Rating:{' '}
-              <span className="text-gray-700 flex ml-2">
-                {' '}
-                {data.rating?.average || '5.5'} /10
-              </span>
-            </p>
-          </div>
-        </div>
+          >
+            <IoArrowBack /> Back
+          </Link>
 
-        <div className="mt-2">
-          <h4 className="text-2xl font-semibold tracking-wide">Cast</h4>
-          <div className="flex flex-wrap">
-            {cast ? (
-              cast.map((val: cast) => {
-                return (
-                  <div key={val.id}>
-                    {' '}
-                    <CastCard
-                      avatarLink={
-                        val.image?.medium || val.image?.original || Placeholder
-                      }
-                      name={val.name}
-                      // name="Freya Allan"
-                    />
-                  </div>
-                );
-              })
-            ) : (
-              <div className=" flex">
-                {' '}
-                <LoadingSpinner /> Loading........
+          <p></p>
+        </div>
+        <div>
+          <div className="flex flex-col gap-4 md:gap-6 p-4 justify-center items-start">
+            <Card className="flex gap-4 bg-secondary  p-2">
+              {data?.genres?.map((val: string, index: number) => {
+                return <GenrePill name={val} key={'j' + index} />;
+              })}
+            </Card>
+            <Card className="gap-4 md:gap-6 p-4 flex sm:flex-row flex-col">
+              <img
+                src={data.image?.medium || data.image?.original || '5.5'}
+                alt={data.name}
+                className="object-cover object-center w-full rounded-md h-80"
+              />
+              <div className="gap-4 flex flex-col">
+                <h2 className="text-4xl font-semibold tracking-wide">
+                  {data.name}
+                </h2>
+                <p
+                  className={'text-muted-foreground'}
+                  dangerouslySetInnerHTML={{ __html: data.summary || '' }}
+                ></p>
+                <Button className="w-fit font-semibold" variant="outline">
+                  <span> Rating:</span>
+                  <span className="text-xs">
+                    {data.rating?.average ?? '5.5'}/10
+                  </span>
+                </Button>
               </div>
-            )}
+            </Card>
+          </div>
+          <p className="w-full border-t-2" />
+          <div className="flex flex-col gap-4 md:gap-6 p-4 justify-center items-start">
+            <h4 className="text-xl font-semibold tracking-wide">Cast</h4>
+            <div className="flex gap-4 flex-wrap">
+              {cast ? (
+                cast.splice(0, 10).map((val: cast) => {
+                  return (
+                    <div key={val.id}>
+                      <CastCard
+                        avatarLink={
+                          val.image?.medium ||
+                          val.image?.original ||
+                          Placeholder
+                        }
+                        name={val.name}
+                      />
+                    </div>
+                  );
+                })
+              ) : (
+                <div className=" flex">
+                  <LoadingSpinner />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -92,8 +109,7 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({
     return (
       <div className=" h-screen  w-full flex justify-center items-center  text-5xl  font-semibold    ">
         <div className=" flex">
-          {' '}
-          <LoadingSpinner /> Loading........
+          <LoadingSpinner />
         </div>
       </div>
     );

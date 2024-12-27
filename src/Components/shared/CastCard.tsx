@@ -1,4 +1,5 @@
-import { memo } from "react";
+import { memo } from 'react';
+import { Card, CardFooter } from '../ui/card';
 
 const CastCard = ({
   avatarLink,
@@ -8,10 +9,10 @@ const CastCard = ({
   name: string;
 }) => {
   return (
-    <div className="p-1 m-1">
-      <img className="w-28 rounded-sm" src={avatarLink} alt="" />
-      <p className="text-gray-500 font-semibold">{name}</p>
-    </div>
+    <Card className="max-w-36">
+      <img className="w-full  rounded-sm" src={avatarLink} alt="name" />
+      <CardFooter className="p-2 font-semibold w-fit">{name}</CardFooter>
+    </Card>
   );
 };
 

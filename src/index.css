@@ -99,9 +99,12 @@
   }
 
   body {
-    @apply mx-auto bg-background text-foreground flex min-h-screen max-w-3xl flex-col px-8 font-sans;
+    @apply  bg-background text-foreground flex min-h-screen flex-col font-sans;
   }
   .title {
     @apply font-calistoga font-normal text-xl tracking-wide;
+  }
+  .header {
+    @apply sticky top-0 z-10 flex w-full items-center justify-between gap-2 border-b bg-background px-4 py-2.5 md:px-6;
   }
 }

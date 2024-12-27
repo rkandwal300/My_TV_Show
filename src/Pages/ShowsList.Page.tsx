@@ -14,36 +14,27 @@ import { Show } from '../Types/Modals';
 
 const ShowListPage: FC<ReduxProps> = ({ showQuery, shows, query, loading }) => {
   useEffect(() => {
-    showQuery('power');
-  }, []);
+    if (query === '') {
+      showQuery('r');
+    }
+  }, [query]);
   return (
-    <div className="mt-2">
-      <div className="flex ">
-        <SearchBar
-          value={query}
-          onChange={(e) => {
-            showQuery(e.target.value);
-          }}
-        />
+    <div className="flex flex-col gap-4 md:gap-6">
+      <div className="header">
+        <p className="font-medium">My TV Show</p>
+        <SearchBar value={query} onChange={showQuery} />
         {loading && <LoadingSpinner />}
       </div>
-      <div className="flex flex-wrap justify-center">
-        {
-          shows?.map((val: Show) => {
-            return (
-              <div key={val.id}>
-                <ShowCard
-                  id={val.id}
-                  image={val.image}
-                  name={val.name}
-                  summary={val.summary}
-                />{' '}
-              </div>
-            );
-          })
-          // ):(  <div className=" h-screen  w-full flex justify-center items-center  text-5xl  font-semibold    " > Loading ..... </div>
-          // )
-        }
+      <div className="flex flex-wrap px-6 gap-4 md:gap-6 justify-center">
+        {shows?.map((val: Show) => (
+          <ShowCard
+            key={val.id}
+            id={val.id}
+            image={val.image}
+            name={val.name}
+            summary={val.summary}
+          />
+        ))}
       </div>
     </div>
   );
