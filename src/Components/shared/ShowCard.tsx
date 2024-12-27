@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Placeholder, Show } from '../Types/Modals';
+import { Placeholder, Show } from '../../Types/Modals';
+import { Card } from '../ui/card';
 
 const ShowCard: FC<Show> = (props) => {
   return (
-    <div className="max-w-xs rounded-md shadow-md p-2 bg-contain m-1">
+    <Card className="max-w-xs rounded-md shadow-md p-2 bg-contain m-1">
       <img
         src={props.image?.medium || props.image?.original || Placeholder}
         alt={props.name}
@@ -27,7 +28,7 @@ const ShowCard: FC<Show> = (props) => {
           View Details
         </Link>
       </div>
-    </div>
+    </Card>
   );
 };
 

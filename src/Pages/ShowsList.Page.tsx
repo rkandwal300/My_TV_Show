@@ -1,8 +1,8 @@
 import { FC, useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import LoadingSpinner from '../Components/LoadingSpinner';
-import SearchBar from '../Components/SearchBar';
-import ShowCard from '../Components/ShowCard';
+import LoadingSpinner from '../Components/shared/LoadingSpinner';
+import SearchBar from '../Components/shared/SearchBar';
+import ShowCard from '../Components/shared/ShowCard';
 import { showLoadedAction, showQueryAction } from '../Redux/Action/Show';
 import { State } from '../Redux/Reducer/Store';
 import {
